@@ -9,8 +9,8 @@ import { shop } from "@/data/i18n";
 import { ProductCard } from "@/components/catalogue/ProductCard";
 import { EnquiryDialog } from "@/components/catalogue/EnquiryDialog";
 import { FloatingEnquiryButton } from "@/components/catalogue/FloatingEnquiryButton";
-import heroBannerLight from "@/assets/mathavan-hero-light.jpg.asset.json";
-import heroBannerDark from "@/assets/mathavan-hero-dark.jpg.asset.json";
+import heroBannerLight from "@/assets/mathavan-hero-light.jpg";
+import heroBannerDark from "@/assets/mathavan-hero-dark.jpg";
 
 const SITE = "https://festival-catalog.lovable.app";
 
@@ -144,14 +144,14 @@ function Catalogue() {
       <section className="relative mt-3 overflow-x-clip border-b border-primary/60 bg-secondary sm:mt-5">
         <div className="relative mx-auto aspect-[1280/533] w-full max-w-[1280px]">
           <img
-            src={heroBannerLight.url}
+            src={heroBannerLight}
             alt="Mathavan Traders Deepavali crackers direct from Sivakasi"
             width={1280}
             height={533}
             className="absolute inset-0 h-full w-full object-contain dark:hidden"
           />
           <img
-            src={heroBannerDark.url}
+            src={heroBannerDark}
             alt="Mathavan Traders Deepavali crackers direct from Sivakasi"
             width={1280}
             height={533}
