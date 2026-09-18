@@ -2,6 +2,8 @@ export type Lang = "ta" | "en";
 
 export const ui = {
   ta: {
+    notice: "இது ஆன்லைன் விற்பனை இல்லை — பொருட்கள் பட்டியல் மற்றும் வாட்ஸ்ஆப் விசாரணை மட்டுமே.",
+    offer: "80% வரை தள்ளுபடி",
     heroTitle: "தீபாவளி பட்டாசுகள், உங்கள் விருப்பப்படி.",
     heroSub:
       "எங்கள் தொகுப்பைப் பாருங்கள், பிடித்தவற்றைத் தேர்ந்தெடுங்கள், வாட்ஸ்ஆப் மூலம் நேரடியாக விசாரியுங்கள்.",
@@ -13,6 +15,7 @@ export const ui = {
     added: "சேர்க்கப்பட்டது",
     enquiry: "விசாரணை பட்டியல்",
     enquiryEmpty: "பட்டியல் காலியாக உள்ளது.",
+    clearList: "பட்டியலை அழி",
     total: "மொத்தம்",
     priceOnRequest: "விலை கேட்கவும்",
     yourDetails: "உங்கள் விவரங்கள்",
@@ -37,7 +40,9 @@ export const ui = {
     orderMsgTitle: "விசாரணை",
   },
   en: {
-    heroTitle: "Diwali Fireworks, Your Way.",
+    notice: "This is not online sales — product catalogue & WhatsApp enquiry only.",
+    offer: "Up to 80% off",
+    heroTitle: "Deepavali Fireworks, Your Way.",
     heroSub:
       "Browse our collection, find your favourites, and enquire directly on WhatsApp.",
     searchPlaceholder: "Search fireworks…",
@@ -48,6 +53,7 @@ export const ui = {
     added: "Added",
     enquiry: "Enquiry List",
     enquiryEmpty: "Your list is empty.",
+    clearList: "Clear list",
     total: "Total",
     priceOnRequest: "Price on request",
     yourDetails: "Your details",

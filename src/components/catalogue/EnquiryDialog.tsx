@@ -34,7 +34,7 @@ export function EnquiryDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const { t, lines, setQty } = useShop();
+  const { t, lines, setQty, clear } = useShop();
   const [form, setForm] = useState(empty);
 
   const items = Object.entries(lines)
@@ -138,9 +138,15 @@ export function EnquiryDialog({
             )}
 
             {items.length > 0 && (
-              <div className="flex items-center justify-between border-t border-border pt-3 text-sm font-semibold">
-                <span>{t.total}</span>
-                <span>₹{total.toLocaleString("en-IN")}</span>
+              <div className="flex items-center justify-between gap-3 border-t border-border pt-3">
+                <Button type="button" variant="outline" size="sm" onClick={clear}>
+                  <Trash2 className="h-3.5 w-3.5" />
+                  {t.clearList}
+                </Button>
+                <div className="flex items-center gap-2 text-sm font-semibold">
+                  <span>{t.total}</span>
+                  <span>₹{total.toLocaleString("en-IN")}</span>
+                </div>
               </div>
             )}
 

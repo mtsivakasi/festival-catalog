@@ -16,11 +16,11 @@ const SITE = "https://festival-catalog.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Deepavali Crackers Sivakasi — Diwali Fireworks Price List 2026" },
+      { title: "Deepavali Crackers Sivakasi — Fireworks Price List 2026 | Mathavan Traders" },
       {
         name: "description",
         content:
-          "Mathavan Traders, Sivakasi: 2026 Deepavali crackers price list with 159 items — flower pots, chakkars, fountains, shots, sparklers and gift boxes. Enquire on WhatsApp.",
+          "Mathavan Traders, Sivakasi: 2026 Deepavali crackers price list with up to 80% off and 159 items — flower pots, chakkars, fountains, shots, sparklers and gift boxes. Enquire on WhatsApp.",
       },
       {
         name: "keywords",
@@ -29,17 +29,18 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "Deepavali Crackers Sivakasi — Diwali Fireworks Price List 2026",
+        content: "Deepavali Crackers Sivakasi — Fireworks Price List 2026 | Mathavan Traders",
       },
       {
         property: "og:description",
         content:
-          "Browse the 2026 Sivakasi Diwali fireworks catalogue in Tamil and English and enquire directly on WhatsApp.",
+          "Up to 80% off. Browse the 2026 Sivakasi Deepavali fireworks catalogue in Tamil and English and enquire directly on WhatsApp.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE },
       { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "author", content: "KliviQ Technologies" },
     ],
     links: [{ rel: "canonical", href: SITE }],
     scripts: [
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/")({
           name: shop.nameEn,
           alternateName: shop.nameTa,
           description:
-            "Deepavali and Diwali fireworks catalogue from Sivakasi, Tamil Nadu. Enquiry and price list only.",
+            "Deepavali fireworks catalogue from Sivakasi, Tamil Nadu, with discounts up to 80% off. Enquiry and price list only.",
           url: SITE,
           telephone: shop.phones,
           address: {
@@ -71,12 +72,16 @@ export const Route = createFileRoute("/")({
     ],
   }),
 
-  component: () => (
+  component: RouteComponent,
+});
+
+function RouteComponent() {
+  return (
     <ShopProvider>
       <Catalogue />
     </ShopProvider>
-  ),
-});
+  );
+}
 
 function Catalogue() {
   const { t, lang, setLang, dark, toggleDark, count } = useShop();
@@ -104,7 +109,12 @@ function Catalogue() {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b border-primary/70 bg-primary/95 text-primary-foreground backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-4 py-2.5">
+        <div className="border-b border-primary-foreground/15">
+          <p className="mx-auto max-w-6xl px-4 py-1 text-center text-[10px] leading-tight font-medium tracking-wide text-primary-foreground/85 sm:text-[11px]">
+            {t.notice}
+          </p>
+        </div>
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-4 py-2">
           <Button
             variant="secondary"
             size="sm"
@@ -130,7 +140,7 @@ function Catalogue() {
         </div>
       </header>
 
-      <section className="festive-hero relative isolate overflow-visible border-b border-primary/60">
+      <section className="festive-hero relative isolate mt-8 overflow-visible border-b border-primary/60 sm:mt-10">
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-festival-gold" />
         <div aria-hidden="true" className="absolute inset-y-0 right-0 w-1.5 bg-festival-green" />
         <div className="relative mx-auto grid min-h-48 max-w-6xl grid-cols-[43%_57%] items-center px-4 py-5 sm:min-h-56 sm:grid-cols-[40%_60%] sm:py-7">
@@ -144,7 +154,12 @@ function Catalogue() {
             />
           </div>
           <div className="relative z-10 flex flex-col items-end py-2 text-right">
-            <span aria-hidden="true" className="mb-3 h-1 w-12 rounded-full bg-festival-gold shadow-sm" />
+            <span className="offer-splash mb-2 px-1">
+              <span aria-hidden="true" className="offer-splash-burst" />
+              <span className="offer-splash-text block text-xl font-black tracking-wide uppercase sm:text-3xl">
+                {t.offer}
+              </span>
+            </span>
             <h1 className="max-w-xl text-lg font-bold text-hero-foreground drop-shadow-sm sm:text-3xl">
               {t.heroTitle}
             </h1>
@@ -155,7 +170,7 @@ function Catalogue() {
         </div>
       </section>
 
-      <nav className="sticky top-[57px] z-20 border-b border-border bg-background/95 backdrop-blur">
+      <nav className="sticky top-[76px] z-20 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-2">
           <div className="relative mb-2 sm:mx-auto sm:max-w-md">
             <Search aria-hidden="true" className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -273,8 +288,17 @@ function Catalogue() {
             product catalogue and enquiry service.
           </p>
           <p className="pt-2">© 2026 {shop.nameEn}</p>
-          <p className="pb-2">
-            Site designed &amp; maintained by{" "}
+          <p className="mx-auto max-w-xl pb-2 text-center leading-relaxed">
+            Website by{" "}
+            <a
+              href="https://zerodot.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              ZeroDot
+            </a>{" "}
+            and{" "}
             <a
               href="https://kliviq.com"
               target="_blank"
@@ -282,7 +306,7 @@ function Catalogue() {
               className="font-medium text-foreground underline underline-offset-2"
             >
               KliviQ Technologies
-            </a>
+            </a>.
           </p>
         </div>
       </footer>

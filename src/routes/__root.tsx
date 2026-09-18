@@ -85,11 +85,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Mathavan Traders" },
       {
         property: "og:description",
-        content: "Seasonal Diwali fireworks catalogue in Tamil and English.",
+        content: "Seasonal Deepavali fireworks catalogue in Tamil and English.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "author", content: "KliviQ Technologies" },
+      { name: "generator", content: "KliviQ Technologies" },
     ],
     links: [
       {

@@ -77,6 +77,7 @@ export const Route = createFileRoute("/faq")({
       { property: "og:type", content: "article" },
       { property: "og:url", content: `${SITE}/faq` },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "author", content: "KliviQ Technologies" },
     ],
     links: [{ rel: "canonical", href: `${SITE}/faq` }],
     scripts: [

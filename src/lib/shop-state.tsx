@@ -27,28 +27,70 @@ type ShopCtx = {
 const Ctx = createContext<ShopCtx | null>(null);
 
 const KEY = "mv-enquiry";
+const LIST_TIMEOUT_MS = 15 * 60 * 1000;
+
+type SavedList = {
+  lines: Lines;
+  updatedAt: number;
+};
 
 export function ShopProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
   const [dark, setDark] = useState(false);
   const [lines, setLines] = useState<Lines>({});
+  const [updatedAt, setUpdatedAt] = useState<number | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      if (raw) setLines(JSON.parse(raw) as Lines);
+      if (raw) {
+        const saved = JSON.parse(raw) as Partial<SavedList>;
+        const isCurrent =
+          saved.lines &&
+          typeof saved.updatedAt === "number" &&
+          Date.now() - saved.updatedAt < LIST_TIMEOUT_MS;
+        if (isCurrent) {
+          setLines(saved.lines ?? {});
+          setUpdatedAt(saved.updatedAt ?? null);
+        } else {
+          localStorage.removeItem(KEY);
+        }
+      }
     } catch {
-      /* ignore */
+      localStorage.removeItem(KEY);
+    } finally {
+      setLoaded(true);
     }
   }, []);
 
   useEffect(() => {
+    if (!loaded) return;
     try {
-      localStorage.setItem(KEY, JSON.stringify(lines));
+      if (Object.keys(lines).length === 0 || updatedAt === null) {
+        localStorage.removeItem(KEY);
+      } else {
+        localStorage.setItem(KEY, JSON.stringify({ lines, updatedAt } satisfies SavedList));
+      }
     } catch {
       /* ignore */
     }
-  }, [lines]);
+  }, [lines, loaded, updatedAt]);
+
+  useEffect(() => {
+    if (!loaded || updatedAt === null || Object.keys(lines).length === 0) return;
+    const remaining = LIST_TIMEOUT_MS - (Date.now() - updatedAt);
+    if (remaining <= 0) {
+      setLines({});
+      setUpdatedAt(null);
+      return;
+    }
+    const timeout = window.setTimeout(() => {
+      setLines({});
+      setUpdatedAt(null);
+    }, remaining);
+    return () => window.clearTimeout(timeout);
+  }, [lines, loaded, updatedAt]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -62,15 +104,23 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       dark,
       toggleDark: () => setDark((d) => !d),
       lines,
-      add: (id) => setLines((l) => ({ ...l, [id]: (l[id] ?? 0) + 1 })),
-      setQty: (id, qty) =>
+      add: (id) => {
+        setLines((l) => ({ ...l, [id]: (l[id] ?? 0) + 1 }));
+        setUpdatedAt(Date.now());
+      },
+      setQty: (id, qty) => {
         setLines((l) => {
           const next = { ...l };
           if (qty <= 0) delete next[id];
           else next[id] = qty;
           return next;
-        }),
-      clear: () => setLines({}),
+        });
+        setUpdatedAt(qty > 0 || Object.keys(lines).length > 1 ? Date.now() : null);
+      },
+      clear: () => {
+        setLines({});
+        setUpdatedAt(null);
+      },
       count: Object.values(lines).reduce((a, b) => a + b, 0),
     }),
     [lang, dark, lines],
