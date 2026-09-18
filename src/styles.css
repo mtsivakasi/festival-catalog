@@ -105,8 +105,8 @@
   --festival-gold: oklch(0.72 0.15 75);
   --festival-pink: oklch(0.61 0.21 350);
   --festival-blue: oklch(0.59 0.16 240);
-  --hero-foreground: oklch(0.99 0.015 85);
-  --hero-muted: oklch(0.91 0.035 82);
+  --hero-foreground: oklch(0.24 0.09 25);
+  --hero-muted: oklch(0.36 0.055 32);
 }
 
 .dark {
@@ -151,39 +151,40 @@
 }
 
 @utility festive-hero {
-  background:
-    radial-gradient(circle at 9% 16%, color-mix(in oklab, var(--festival-gold) 52%, transparent) 0 2px, transparent 3px),
-    radial-gradient(circle at 84% 20%, color-mix(in oklab, var(--festival-pink) 45%, transparent) 0 2px, transparent 3px),
-    radial-gradient(circle at 76% 82%, color-mix(in oklab, var(--festival-blue) 42%, transparent) 0 2px, transparent 3px),
-    repeating-conic-gradient(from 8deg at 90% 8%, color-mix(in oklab, var(--festival-gold) 24%, transparent) 0deg 1deg, transparent 1deg 14deg),
-    linear-gradient(118deg, color-mix(in oklab, var(--primary) 68%, var(--festival-gold)) 0%, var(--primary) 35%, color-mix(in oklab, var(--festival-pink) 72%, var(--primary)) 61%, color-mix(in oklab, var(--festival-blue) 72%, var(--primary)) 82%, color-mix(in oklab, var(--festival-green) 74%, var(--primary)) 100%);
+  background-color: var(--background);
+}
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-    border-radius: 999px;
+@utility hero-scene-overlay {
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--background) 94%, transparent) 0%,
+    color-mix(in oklab, var(--background) 78%, transparent) 38%,
+    color-mix(in oklab, var(--background) 18%, transparent) 64%,
+    transparent 100%);
+}
+
+.dark .hero-scene-overlay {
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--background) 92%, transparent) 0%,
+    color-mix(in oklab, var(--background) 72%, transparent) 38%,
+    color-mix(in oklab, var(--background) 14%, transparent) 64%,
+    transparent 100%);
+}
+
+@media (max-width: 639px) {
+  .hero-scene-overlay {
+    background: linear-gradient(90deg,
+      color-mix(in oklab, var(--background) 96%, transparent) 0%,
+      color-mix(in oklab, var(--background) 86%, transparent) 48%,
+      color-mix(in oklab, var(--background) 24%, transparent) 72%,
+      transparent 100%);
   }
 
-  &::before {
-    width: 8.5rem;
-    height: 8.5rem;
-    right: 5%;
-    top: -4.5rem;
-    border: 1px solid color-mix(in oklab, var(--festival-gold) 60%, transparent);
-    box-shadow:
-      0 0 0 18px color-mix(in oklab, var(--festival-gold) 8%, transparent),
-      0 0 0 38px color-mix(in oklab, var(--festival-pink) 6%, transparent);
-  }
-
-  &::after {
-    width: 6rem;
-    height: 6rem;
-    left: 38%;
-    bottom: -4rem;
-    border: 1px solid color-mix(in oklab, var(--festival-blue) 40%, transparent);
-    box-shadow: 0 0 0 22px color-mix(in oklab, var(--festival-green) 8%, transparent);
+  .dark .hero-scene-overlay {
+    background: linear-gradient(90deg,
+      color-mix(in oklab, var(--background) 95%, transparent) 0%,
+      color-mix(in oklab, var(--background) 82%, transparent) 48%,
+      color-mix(in oklab, var(--background) 20%, transparent) 72%,
+      transparent 100%);
   }
 }
 
@@ -191,38 +192,41 @@
   position: relative;
   display: inline-block;
   isolation: isolate;
-  animation: offer-pulse 2.4s ease-in-out infinite;
+  animation: offer-pulse 2.8s ease-in-out infinite;
 
   .offer-splash-burst {
     position: absolute;
-    inset: -1.6rem -2.4rem;
+    inset: -0.7rem -1.1rem;
     z-index: -1;
     background:
-      radial-gradient(closest-side, color-mix(in oklab, var(--festival-gold) 55%, transparent), transparent 78%),
-      repeating-conic-gradient(from 0deg,
-        color-mix(in oklab, var(--festival-gold) 78%, transparent) 0deg 11.25deg,
-        color-mix(in oklab, var(--festival-pink) 62%, transparent) 11.25deg 22.5deg);
-    clip-path: polygon(100% 50%, 87.3% 57.4%, 96.2% 69.1%, 81.6% 71.1%, 85.4% 85.4%, 71.1% 81.6%, 69.1% 96.2%, 57.4% 87.3%, 50% 100%, 42.6% 87.3%, 30.9% 96.2%, 28.9% 81.6%, 14.6% 85.4%, 18.4% 71.1%, 3.8% 69.1%, 12.7% 57.4%, 0% 50%, 12.7% 42.6%, 3.8% 30.9%, 18.4% 28.9%, 14.6% 14.6%, 28.9% 18.4%, 30.9% 3.8%, 42.6% 12.7%, 50% 0%, 57.4% 12.7%, 69.1% 3.8%, 71.1% 18.4%, 85.4% 14.6%, 81.6% 28.9%, 96.2% 30.9%, 87.3% 42.6%);
-    filter: drop-shadow(0 0 10px color-mix(in oklab, var(--festival-gold) 55%, transparent));
-    animation: offer-spin 22s linear infinite;
+      radial-gradient(closest-side, color-mix(in oklab, var(--festival-gold) 58%, transparent), transparent 76%),
+      repeating-conic-gradient(from 0deg, color-mix(in oklab, var(--festival-gold) 60%, transparent) 0deg 3deg, transparent 3deg 24deg);
+    clip-path: polygon(100% 50%, 85% 60%, 93% 76%, 73% 77%, 68% 96%, 52% 84%, 37% 98%, 31% 79%, 11% 81%, 20% 62%, 0% 50%, 20% 39%, 10% 20%, 31% 21%, 37% 2%, 52% 16%, 69% 3%, 74% 23%, 94% 24%, 85% 40%);
+    filter: drop-shadow(0 0 8px color-mix(in oklab, var(--festival-gold) 50%, transparent));
+    animation: offer-shimmer 3.8s ease-in-out infinite;
   }
 
   .offer-splash-text {
     background-image: linear-gradient(94deg,
-      color-mix(in oklab, var(--festival-gold) 92%, white) 0%,
-      white 42%,
-      color-mix(in oklab, var(--festival-pink) 85%, white) 78%,
-      color-mix(in oklab, var(--festival-blue) 70%, white) 100%);
+      color-mix(in oklab, var(--festival-gold) 78%, var(--hero-foreground)) 0%,
+      var(--hero-foreground) 42%,
+      color-mix(in oklab, var(--festival-pink) 72%, var(--hero-foreground)) 78%,
+      color-mix(in oklab, var(--festival-blue) 64%, var(--hero-foreground)) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 1px 2px color-mix(in oklab, black 55%, transparent));
+    filter: drop-shadow(0 1px 1px color-mix(in oklab, var(--background) 70%, transparent));
   }
 }
 
-@keyframes offer-spin {
-  to {
-    transform: rotate(360deg);
+@keyframes offer-shimmer {
+  0%, 100% {
+    opacity: 0.68;
+    transform: scale(0.98) rotate(-1deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04) rotate(1deg);
   }
 }
 
@@ -232,7 +236,14 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offer-splash,
+  .offer-splash-burst {
+    animation: none;
   }
 }
 
