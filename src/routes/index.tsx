@@ -9,7 +9,8 @@ import { shop } from "@/data/i18n";
 import { ProductCard } from "@/components/catalogue/ProductCard";
 import { EnquiryDialog } from "@/components/catalogue/EnquiryDialog";
 import { FloatingEnquiryButton } from "@/components/catalogue/FloatingEnquiryButton";
-import heroArtwork from "@/assets/mathavan-traders-contour.png";
+import heroBannerLight from "@/assets/mathavan-hero-light.jpg.asset.json";
+import heroBannerDark from "@/assets/mathavan-hero-dark.jpg.asset.json";
 
 const SITE = "https://festival-catalog.lovable.app";
 
@@ -140,33 +141,30 @@ function Catalogue() {
         </div>
       </header>
 
-      <section className="festive-hero relative isolate mt-8 overflow-visible border-b border-primary/60 sm:mt-10">
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-festival-gold" />
-        <div aria-hidden="true" className="absolute inset-y-0 right-0 w-1.5 bg-festival-green" />
-        <div className="relative mx-auto grid min-h-48 max-w-6xl grid-cols-[43%_57%] items-center px-4 py-5 sm:min-h-56 sm:grid-cols-[40%_60%] sm:py-7">
-          <div className="relative self-stretch">
-            <img
-              src={heroArtwork}
-              alt="Mathavan Traders fireworks brand mark"
-              width={1926}
-              height={1987}
-              className="absolute -top-8 right-3 bottom-1 left-0 h-[calc(100%+1.75rem)] w-[calc(100%-0.75rem)] object-contain object-left drop-shadow-xl sm:-top-10 sm:right-10 sm:bottom-0 sm:left-4 sm:h-[calc(100%+2.5rem)] sm:w-[calc(100%-3.5rem)]"
-            />
-          </div>
-          <div className="relative z-10 flex flex-col items-end py-2 text-right">
-            <span className="offer-splash mb-2 px-1">
+      <section className="relative mt-3 overflow-x-clip border-b border-primary/60 bg-secondary sm:mt-5">
+        <div className="relative mx-auto aspect-[1280/533] w-full max-w-[1280px]">
+          <img
+            src={heroBannerLight.url}
+            alt="Mathavan Traders Deepavali crackers direct from Sivakasi"
+            width={1280}
+            height={533}
+            className="absolute inset-0 h-full w-full object-contain dark:hidden"
+          />
+          <img
+            src={heroBannerDark.url}
+            alt="Mathavan Traders Deepavali crackers direct from Sivakasi"
+            width={1280}
+            height={533}
+            className="absolute inset-0 hidden h-full w-full object-contain dark:block"
+          />
+          <span className="absolute top-[65%] left-[18.5%] z-10 -translate-x-1/2 -translate-y-1/2">
+            <span className="offer-splash px-1 py-0.5 sm:px-2 sm:py-1">
               <span aria-hidden="true" className="offer-splash-burst" />
-              <span className="offer-splash-text block text-xl font-black tracking-wide uppercase sm:text-3xl">
+              <span className="offer-splash-text block text-[7px] font-black tracking-wide whitespace-nowrap uppercase sm:text-sm lg:text-base">
                 {t.offer}
               </span>
             </span>
-            <h1 className="max-w-xl text-lg font-bold text-hero-foreground drop-shadow-sm sm:text-3xl">
-              {t.heroTitle}
-            </h1>
-            <p className="mt-2 max-w-xl text-xs leading-relaxed text-hero-muted sm:text-sm">
-              {t.heroSub}
-            </p>
-          </div>
+          </span>
         </div>
       </section>
 
