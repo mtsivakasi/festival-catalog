@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useShop } from "@/lib/shop-state";
+import { logEnquiry } from "@/lib/enquiry-log.functions";
 import { products } from "@/data/products";
 import { shop } from "@/data/i18n";
 
@@ -34,7 +35,7 @@ export function EnquiryDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const { t, lines, setQty, clear } = useShop();
+  const { t, lang, lines, setQty, clear } = useShop();
   const [form, setForm] = useState(empty);
 
   const items = Object.entries(lines)
@@ -51,6 +52,9 @@ export function EnquiryDialog({
     const parsed = schema.safeParse(form);
     if (!parsed.success || items.length === 0) return;
     const d = parsed.data;
+    void logEnquiry({ data: { ...d, lang, lines } }).catch(() => {
+      /* never block the WhatsApp enquiry */
+    });
     const lineText = items
       .map(
         (i, n) =>
