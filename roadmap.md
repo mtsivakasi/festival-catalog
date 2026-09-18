@@ -16,3 +16,6 @@
 - [x] Improve search/AI discoverability: page titles, descriptions, canonical URLs, business data, sitemap and crawler rules.
 - [x] Add an FAQ page linked only from the footer.
 - [x] Centre the KliviQ credit and keep it clear of the floating enquiry button on mobile.
+- [x] Keep the hero artwork’s top overlap visible below the sticky header.
+- [x] Add a clear-list action and expire saved enquiry items after 15 minutes of inactivity.
+- [x] Replace the footer credit with linked ZeroDot and KliviQ Technologies names.
