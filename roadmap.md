@@ -19,3 +19,4 @@
 - [x] Keep the hero artwork’s top overlap visible below the sticky header.
 - [x] Add a clear-list action and expire saved enquiry items after 15 minutes of inactivity.
 - [x] Replace the footer credit with linked ZeroDot and KliviQ Technologies names.
+- [x] Log each enquiry as a row in a Google Sheet (mathavantraders.sivakasi@gmail.com) for daily Excel download.
