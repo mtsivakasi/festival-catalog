@@ -1,6 +1,6 @@
-import kuruviDemo from "@/assets/products/kuruvi-demo.asset.json";
-import lakshmiDemo from "@/assets/products/lakshmi-demo.asset.json";
-import twinklingStarDemo from "@/assets/products/twinkling-star-1-5-inch.asset.json";
+import kuruviDemo from "@/assets/products/kuruvi-demo.jpg";
+import lakshmiDemo from "@/assets/products/lakshmi-demo.jpg";
+import twinklingStarDemo from "@/assets/products/twinkling-star-1-5-inch.png";
 
 export type Product = {
   id: string;
@@ -29,8 +29,8 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
-  { id: "1", category: "one-sound-crackers", nameEn: "2 3/4\" Kuruvi", nameTa: "2 3/4\" குருவி", pack: "1 Pkt", price: 45, image: kuruviDemo.url },
-  { id: "2", category: "one-sound-crackers", nameEn: "3 1/2\" Lakshmi", nameTa: "3½\" லட்சமி", pack: "1 Pkt", price: 80, image: lakshmiDemo.url },
+  { id: "1", category: "one-sound-crackers", nameEn: "2 3/4\" Kuruvi", nameTa: "2 3/4\" குருவி", pack: "1 Pkt", price: 45, image: kuruviDemo },
+  { id: "2", category: "one-sound-crackers", nameEn: "3 1/2\" Lakshmi", nameTa: "3½\" லட்சமி", pack: "1 Pkt", price: 80, image: lakshmiDemo },
   { id: "3", category: "one-sound-crackers", nameEn: "4\" Lakshmi", nameTa: "4\" லட்சமி", pack: "1 Pkt", price: 125 },
   { id: "4", category: "one-sound-crackers", nameEn: "4\" Deluxe Lakshmi", nameTa: "4\" டெலக்ஸ் லட்சமி", pack: "1 Pkt", price: 180 },
   { id: "5", category: "one-sound-crackers", nameEn: "4\" Gold Lakshmi", nameTa: "4\" கோல்ட் லட்சமி", pack: "1 Pkt", price: 190 },
@@ -131,7 +131,7 @@ export const products: Product[] = [
   { id: "100", category: "fountain-varieties", nameEn: "Baby Rocket", nameTa: "பேபி ராக்கெட்", pack: "1 Box", price: 200 },
   { id: "101", category: "fountain-varieties", nameEn: "Rocket Bomb", nameTa: "ராக்கெட் பாம்", pack: "1 Box", price: 400 },
   { id: "102", category: "fountain-varieties", nameEn: "Whistling Rocket", nameTa: "விசிளிங் ராக்கெட்", pack: "1 Box", price: 900 },
-  { id: "103", category: "fountain-varieties", nameEn: "1½\" Twinkling Star", nameTa: "1 1/2 அழ் சாட்டல்", pack: "1 Box", price: 100, image: twinklingStarDemo.url },
+  { id: "103", category: "fountain-varieties", nameEn: "1½\" Twinkling Star", nameTa: "1 1/2 அழ் சாட்டல்", pack: "1 Box", price: 100, image: twinklingStarDemo },
   { id: "104", category: "fountain-varieties", nameEn: "4\" Twinkling Star", nameTa: "4 அழ் சாட்டல்", pack: "1 Box", price: 300 },
   { id: "105", category: "fountain-varieties", nameEn: "Belly Two Peacock", nameTa: "பெல்வி ரு பீக்காக்", pack: "1 Box", price: 750 },
   { id: "106", category: "fountain-varieties", nameEn: "Dancing & Dragon Peacock", nameTa: "டான்சிங் & டிராகன் பீக்காக்", pack: "1 Box", price: 1250 },
