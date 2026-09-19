@@ -1,0 +1,11 @@
+# Mathavan Traders
+
+> A bilingual Tamil and English Deepavali fireworks catalogue and WhatsApp enquiry service in Sivakasi, Tamil Nadu. This is not an e-commerce website.
+
+## Public pages
+- [Fireworks catalogue](https://festival-catalog.lovable.app/): 2026 product list, prices, categories, contact details, and WhatsApp enquiry.
+- [Fireworks FAQ](https://festival-catalog.lovable.app/faq): Answers about Sivakasi, Deepavali fireworks, safety, enquiries, and delivery.
+
+## Contact
+- Mathavan Traders, Naranapuram Road, Pethulupatti Branch, Sivakasi, Tamil Nadu, India.
+- Phone: +91 63790 46369 / +91 78068 28739
