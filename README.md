@@ -174,17 +174,7 @@ Do not add unnecessary libraries, APIs or architecture.
 
 The product list should be easy to replace/update later when the client provides the final product images and information.
 
-This project was built with [Lovable](https://lovable.dev).
-
 **Live app**: https://festival-catalog.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/2414fd3e-d9bc-4f10-9672-d05d051f9d36).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 

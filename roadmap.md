@@ -20,3 +20,12 @@
 - [x] Add a clear-list action and expire saved enquiry items after 15 minutes of inactivity.
 - [x] Replace the footer credit with linked ZeroDot and KliviQ Technologies names.
 - [x] Log each enquiry as a row in a Google Sheet (mathavantraders.sivakasi@gmail.com) for daily Excel download.
+- [x] Add the supplied social sharing image and original downloadable 2026 price list.
+- [x] Make both hero actions work and enlarge the stationary discount text with an animated splash.
+- [x] Move 2026 new arrivals first and add category dividers with back-to-top controls.
+- [x] Add labelled representative product photos for new arrivals, one-sound crackers, and flower pots.
+- [x] Update ZeroDot to Instagram, add AI discovery information, and remove public-facing platform copy.
+- [x] Verify deployment files, desktop/mobile behavior, metadata, downloads, runtime, and build health.
+- [x] Remove newly added representative photos, keeping only the original Kuruvi and Lakshmi images.
+- [x] Brighten and animate the offer, remove the header-to-hero gap, add category-scroll arrows, and correct Tamil labels.
+- [x] Diagnose and verify Google Sheets enquiry logging, then fix any confirmed failure.
