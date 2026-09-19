@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ClipboardList, Moon, Sun, Phone, MessageCircle, Search, X } from "lucide-react";
+import { ArrowUp, ChevronLeft, ChevronRight, ClipboardList, Moon, Sun, Phone, MessageCircle, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShopProvider, useShop } from "@/lib/shop-state";
@@ -40,7 +40,11 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE },
       { property: "og:locale", content: "en_IN" },
+      { property: "og:image", content: `${SITE}/mathavan-og-1200x630.jpg` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE}/mathavan-og-1200x630.jpg` },
       { name: "author", content: "KliviQ Technologies" },
     ],
     links: [{ rel: "canonical", href: SITE }],
@@ -88,6 +92,9 @@ function Catalogue() {
   const { t, lang, setLang, dark, toggleDark, count } = useShop();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const categoryStripRef = useRef<HTMLDivElement>(null);
+  const [categoryScroll, setCategoryScroll] = useState({ left: false, right: true });
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const filteredProducts = normalizedQuery
     ? products.filter((product) => {
@@ -107,8 +114,30 @@ function Catalogue() {
     filteredProducts.some((product) => product.category === category.id),
   );
 
+  const updateCategoryScroll = () => {
+    const strip = categoryStripRef.current;
+    if (!strip) return;
+    setCategoryScroll({
+      left: strip.scrollLeft > 2,
+      right: strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 2,
+    });
+  };
+
+  useEffect(() => {
+    updateCategoryScroll();
+    window.addEventListener("resize", updateCategoryScroll);
+    return () => window.removeEventListener("resize", updateCategoryScroll);
+  }, [visibleCategories.length]);
+
+  const scrollCategories = (direction: -1 | 1) => {
+    categoryStripRef.current?.scrollBy({
+      left: direction * Math.max(180, categoryStripRef.current.clientWidth * 0.7),
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div id="page-top" className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b border-primary/70 bg-primary/95 text-primary-foreground backdrop-blur">
         <div className="border-b border-primary-foreground/15">
           <p className="mx-auto max-w-6xl px-4 py-1 text-center text-[10px] leading-tight font-medium tracking-wide text-primary-foreground/85 sm:text-[11px]">
@@ -141,7 +170,7 @@ function Catalogue() {
         </div>
       </header>
 
-      <section className="relative mt-3 overflow-x-clip border-b border-primary/60 bg-secondary sm:mt-5">
+      <section className="relative overflow-x-clip border-b border-primary/60 bg-secondary">
         <div className="relative mx-auto aspect-[1280/533] w-full max-w-[1280px]">
           <img
             src={heroBannerLight}
@@ -157,24 +186,51 @@ function Catalogue() {
             height={533}
             className="absolute inset-0 hidden h-full w-full object-contain dark:block"
           />
-          <span className="absolute top-[65%] left-[18.5%] z-10 -translate-x-1/2 -translate-y-1/2">
-            <span className="offer-splash px-1 py-0.5 sm:px-2 sm:py-1">
+          <span className="absolute top-[14%] left-[75%] z-10 -translate-x-1/2 -translate-y-1/2">
+            <span className="offer-splash px-3 py-2 sm:px-5 sm:py-3">
               <span aria-hidden="true" className="offer-splash-burst" />
-              <span className="offer-splash-text block text-[7px] font-black tracking-wide whitespace-nowrap uppercase sm:text-sm lg:text-base">
+              <span className="offer-splash-text block text-sm font-black tracking-wide whitespace-nowrap uppercase sm:text-xl lg:text-3xl">
                 {t.offer}
               </span>
             </span>
           </span>
+          <Button
+            asChild
+            variant="ghost"
+            className="absolute top-[84%] left-[2.4%] z-10 h-[12%] w-[24%] rounded-full bg-transparent p-0 hover:bg-primary-foreground/10 focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <a
+              href="#catalogue-search"
+              onClick={() => window.setTimeout(() => searchRef.current?.focus(), 450)}
+              aria-label="Browse crackers and search the catalogue"
+            >
+              <span className="sr-only">Browse Crackers</span>
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="ghost"
+            className="absolute top-[84%] left-[28%] z-10 h-[12%] w-[21%] rounded-full bg-transparent p-0 hover:bg-primary-foreground/10 focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <a
+              href="/Mathavan_Crackers_Pricelist_-_2026.pdf"
+              download
+              aria-label="Download the 2026 price list PDF"
+            >
+              <span className="sr-only">View 2026 Price List PDF</span>
+            </a>
+          </Button>
         </div>
       </section>
 
       <nav className="sticky top-[76px] z-20 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-2">
-          <div className="relative mb-2 sm:mx-auto sm:max-w-md">
+          <div id="catalogue-search" className="relative mb-2 scroll-mt-28 sm:mx-auto sm:max-w-md">
             <Search aria-hidden="true" className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
               value={query}
+              ref={searchRef}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={t.searchPlaceholder}
               aria-label={t.searchPlaceholder}
@@ -193,8 +249,24 @@ function Catalogue() {
               </Button>
             )}
           </div>
-          <div className="overflow-x-auto">
-            <div className="flex w-max gap-2">
+          <div className="relative flex items-center gap-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 shrink-0 rounded-full text-muted-foreground"
+              onClick={() => scrollCategories(-1)}
+              disabled={!categoryScroll.left}
+              aria-label="Scroll categories left"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <div
+              ref={categoryStripRef}
+              onScroll={updateCategoryScroll}
+              className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              <div className="flex w-max gap-2">
             {visibleCategories.map((c) => (
               <a
                 key={c.id}
@@ -204,7 +276,19 @@ function Catalogue() {
                 {lang === "ta" ? c.nameTa : c.nameEn}
               </a>
             ))}
+              </div>
             </div>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 shrink-0 rounded-full text-muted-foreground"
+              onClick={() => scrollCategories(1)}
+              disabled={!categoryScroll.right}
+              aria-label="Scroll categories right"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </nav>
@@ -225,6 +309,19 @@ function Catalogue() {
                 {items.map((p) => (
                   <ProductCard key={p.id} product={p} />
                 ))}
+              </div>
+              <div className="mt-8 flex items-center gap-3" aria-hidden="false">
+                <span className="h-px flex-1 bg-border" />
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 rounded-full text-muted-foreground"
+                >
+                  <a href="#page-top" aria-label="Back to top">
+                    <ArrowUp className="h-3.5 w-3.5" />
+                  </a>
+                </Button>
               </div>
             </section>
           );
@@ -289,7 +386,7 @@ function Catalogue() {
           <p className="mx-auto max-w-xl pb-2 text-center leading-relaxed">
             Website by{" "}
             <a
-              href="https://zerodot.in"
+              href="https://instagram.com/zerodot.in"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-foreground underline underline-offset-2"

@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
-      <div className="flex aspect-square items-center justify-center bg-gradient-to-br from-accent/60 to-secondary">
+      <div className="relative flex aspect-square items-center justify-center bg-gradient-to-br from-accent/60 to-secondary">
         {product.image ? (
           <img
             src={product.image}

@@ -37,10 +37,11 @@ export function EnquiryDialog({
 }) {
   const { t, lang, lines, setQty, clear } = useShop();
   const [form, setForm] = useState(empty);
+  const [submitting, setSubmitting] = useState(false);
 
   const items = Object.entries(lines)
-    .map(([id, qty]) => ({ product: products.find((p) => p.id === id)!, qty }))
-    .filter((i) => i.product);
+    .map(([id, qty]) => ({ product: products.find((p) => p.id === id), qty }))
+    .filter((i): i is { product: (typeof products)[number]; qty: number } => Boolean(i.product));
 
   const total = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.qty, 0);
   const valid = schema.safeParse(form).success && items.length > 0;
@@ -48,13 +49,10 @@ export function EnquiryDialog({
   const set = (k: keyof typeof empty, v: string) =>
     setForm((f) => ({ ...f, [k]: v }));
 
-  const send = () => {
+  const send = async () => {
     const parsed = schema.safeParse(form);
-    if (!parsed.success || items.length === 0) return;
+    if (!parsed.success || items.length === 0 || submitting) return;
     const d = parsed.data;
-    void logEnquiry({ data: { ...d, lang, lines } }).catch(() => {
-      /* never block the WhatsApp enquiry */
-    });
     const lineText = items
       .map(
         (i, n) =>
@@ -70,11 +68,16 @@ export function EnquiryDialog({
       `${t.name}: ${d.name}\n${t.mobile}: ${d.mobile}\n${t.address}: ${d.address}\n` +
       `${t.city}: ${d.city}\n${t.pin}: ${d.pin}` +
       (d.email ? `\nEmail: ${d.email}` : "");
-    window.open(
-      `https://wa.me/${shop.whatsapp}?text=${encodeURIComponent(msg)}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
+    const whatsappUrl = `https://wa.me/${shop.whatsapp}?text=${encodeURIComponent(msg)}`;
+    setSubmitting(true);
+    try {
+      const result = await logEnquiry({ data: { ...d, lang, lines } });
+      if (!result.ok) console.error("Enquiry was not saved to the spreadsheet.");
+    } catch (error: unknown) {
+      console.error("Enquiry spreadsheet save failed", error);
+    } finally {
+      window.location.assign(whatsappUrl);
+    }
   };
 
   return (
@@ -195,7 +198,7 @@ export function EnquiryDialog({
         </div>
 
         <div className="shrink-0 border-t border-border px-4 py-3">
-          <Button className="w-full" disabled={!valid} onClick={send}>
+          <Button className="w-full" disabled={!valid || submitting} onClick={send}>
             {t.placeOrder}
           </Button>
         </div>

@@ -1,6 +1,5 @@
 import kuruviDemo from "@/assets/products/kuruvi-demo.jpg";
 import lakshmiDemo from "@/assets/products/lakshmi-demo.jpg";
-import twinklingStarDemo from "@/assets/products/twinkling-star-1-5-inch.png";
 
 export type Product = {
   id: string;
@@ -15,17 +14,17 @@ export type Product = {
 export type Category = { id: string; nameEn: string; nameTa: string };
 
 export const categories: Category[] = [
-  { id: "one-sound-crackers", nameEn: "ONE SOUND CRACKERS", nameTa: "ஒற்றை வெளிகள்" },
-  { id: "flower-pots", nameEn: "FLOWER POTS", nameTa: "பூச்சட்டி வைக்கள்" },
-  { id: "ground-chakkars", nameEn: "GROUND CHAKKARS", nameTa: "தரைச்சக்கரம் வைக்கள்" },
-  { id: "pencil-color-matches", nameEn: "PENCIL & COLOR MATCHES", nameTa: "பென்சில் & மத்தாம்பு வைக்கள்" },
+  { id: "2026-new-arrivals", nameEn: "2026 NEW ARRIVALS", nameTa: "2026 புதிய வருகை" },
+  { id: "one-sound-crackers", nameEn: "ONE SOUND CRACKERS", nameTa: "ஒற்றை வெடிகள்" },
+  { id: "flower-pots", nameEn: "FLOWER POTS", nameTa: "பூச்சட்டி வெடிகள்" },
+  { id: "ground-chakkars", nameEn: "GROUND CHAKKARS", nameTa: "தரைச்சக்கரம் வெடிகள்" },
+  { id: "pencil-color-matches", nameEn: "PENCIL & COLOR MATCHES", nameTa: "பென்சில் & மத்தாப்பு வெடிகள்" },
   { id: "color-matches", nameEn: "COLOR MATCHES", nameTa: "கலர் மத்தாம்பு" },
   { id: "fountain-varieties", nameEn: "FOUNTAIN & VARIETIES", nameTa: "பவுண்டன் வகைகள்" },
   { id: "multicolour-shots", nameEn: "MULTICOLOUR SHOTS", nameTa: "மலர் கலர் வானெலவுகள்" },
   { id: "fancy-pipe-items", nameEn: "FANCY PIPE ITEMS", nameTa: "பென்சி ருக வெலவுகள்" },
   { id: "sparklers", nameEn: "SPARKLERS", nameTa: "கம்பி மத்தாம்புகள்" },
   { id: "gift-box", nameEn: "GIFT BOX", nameTa: "கிம்ப் பாக்ஸ்" },
-  { id: "2026-new-arrivals", nameEn: "2026 NEW ARRIVALS", nameTa: "2026 புதிய வருடக்" },
 ];
 
 export const products: Product[] = [
@@ -131,7 +130,7 @@ export const products: Product[] = [
   { id: "100", category: "fountain-varieties", nameEn: "Baby Rocket", nameTa: "பேபி ராக்கெட்", pack: "1 Box", price: 200 },
   { id: "101", category: "fountain-varieties", nameEn: "Rocket Bomb", nameTa: "ராக்கெட் பாம்", pack: "1 Box", price: 400 },
   { id: "102", category: "fountain-varieties", nameEn: "Whistling Rocket", nameTa: "விசிளிங் ராக்கெட்", pack: "1 Box", price: 900 },
-  { id: "103", category: "fountain-varieties", nameEn: "1½\" Twinkling Star", nameTa: "1 1/2 அழ் சாட்டல்", pack: "1 Box", price: 100, image: twinklingStarDemo },
+  { id: "103", category: "fountain-varieties", nameEn: "1½\" Twinkling Star", nameTa: "1 1/2 அழ் சாட்டல்", pack: "1 Box", price: 100 },
   { id: "104", category: "fountain-varieties", nameEn: "4\" Twinkling Star", nameTa: "4 அழ் சாட்டல்", pack: "1 Box", price: 300 },
   { id: "105", category: "fountain-varieties", nameEn: "Belly Two Peacock", nameTa: "பெல்வி ரு பீக்காக்", pack: "1 Box", price: 750 },
   { id: "106", category: "fountain-varieties", nameEn: "Dancing & Dragon Peacock", nameTa: "டான்சிங் & டிராகன் பீக்காக்", pack: "1 Box", price: 1250 },

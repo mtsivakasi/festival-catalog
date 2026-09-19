@@ -192,56 +192,37 @@
   position: relative;
   display: inline-block;
   isolation: isolate;
-  animation: offer-pulse 2.8s ease-in-out infinite;
 
   .offer-splash-burst {
     position: absolute;
     inset: -0.7rem -1.1rem;
     z-index: -1;
     background:
-      radial-gradient(closest-side, color-mix(in oklab, var(--festival-gold) 58%, transparent), transparent 76%),
-      repeating-conic-gradient(from 0deg, color-mix(in oklab, var(--festival-gold) 60%, transparent) 0deg 3deg, transparent 3deg 24deg);
+      radial-gradient(closest-side, var(--festival-gold), color-mix(in oklab, var(--festival-pink) 72%, transparent) 58%, transparent 78%),
+      repeating-conic-gradient(from 0deg, var(--festival-gold) 0deg 4deg, transparent 4deg 19deg);
     clip-path: polygon(100% 50%, 85% 60%, 93% 76%, 73% 77%, 68% 96%, 52% 84%, 37% 98%, 31% 79%, 11% 81%, 20% 62%, 0% 50%, 20% 39%, 10% 20%, 31% 21%, 37% 2%, 52% 16%, 69% 3%, 74% 23%, 94% 24%, 85% 40%);
-    filter: drop-shadow(0 0 8px color-mix(in oklab, var(--festival-gold) 50%, transparent));
-    animation: offer-shimmer 3.8s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px color-mix(in oklab, var(--festival-gold) 78%, transparent));
+    animation: offer-shimmer 1.5s ease-in-out infinite;
   }
 
   .offer-splash-text {
-    background-image: linear-gradient(94deg,
-      color-mix(in oklab, var(--festival-gold) 78%, var(--hero-foreground)) 0%,
-      var(--hero-foreground) 42%,
-      color-mix(in oklab, var(--festival-pink) 72%, var(--hero-foreground)) 78%,
-      color-mix(in oklab, var(--festival-blue) 64%, var(--hero-foreground)) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 1px color-mix(in oklab, var(--background) 70%, transparent));
+    color: var(--hero-foreground);
+    text-shadow: 0 1px 2px var(--hero-background), 0 0 8px var(--hero-background);
   }
 }
 
 @keyframes offer-shimmer {
   0%, 100% {
-    opacity: 0.68;
-    transform: scale(0.98) rotate(-1deg);
+    opacity: 0.76;
+    transform: scale(0.92) rotate(-4deg);
   }
   50% {
     opacity: 1;
-    transform: scale(1.04) rotate(1deg);
-  }
-}
-
-@keyframes offer-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.035);
+    transform: scale(1.12) rotate(4deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .offer-splash,
   .offer-splash-burst {
     animation: none;
   }

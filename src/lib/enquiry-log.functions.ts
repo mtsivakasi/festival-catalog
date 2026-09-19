@@ -35,7 +35,7 @@ function istParts() {
 }
 
 export const logEnquiry = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => input.parse(data))
+  .validator((data: unknown) => input.parse(data))
   .handler(async ({ data }) => {
     const lovableKey = process.env['LOVABLE_API_KEY'];
     const sheetsKey = process.env['GOOGLE_SHEETS_API_KEY'];
@@ -74,7 +74,7 @@ export const logEnquiry = createServerFn({ method: "POST" })
     ];
 
     const res = await fetch(
-      `${GATEWAY_URL}/spreadsheets/${sheetId}/values/Enquiries!A:L:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,
+      `${GATEWAY_URL}/spreadsheets/${sheetId}/values/Enquiries!A:L:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
       {
         method: "POST",
         headers: {
