@@ -29,3 +29,7 @@
 - [x] Remove newly added representative photos, keeping only the original Kuruvi and Lakshmi images.
 - [x] Brighten and animate the offer, remove the header-to-hero gap, add category-scroll arrows, and correct Tamil labels.
 - [x] Diagnose and verify Google Sheets enquiry logging, then fix any confirmed failure.
+- [x] Add exact 80% price breakdowns to the enquiry list, WhatsApp message, and enquiry spreadsheet.
+- [x] Enforce the ₹2,500 pre-discount minimum and add bilingual ordering and transport notices.
+- [x] Reorganize the footer into a two-by-two mobile grid and add Privacy Policy and Terms pages.
+- [x] Update the FAQ and verify pricing, language, spreadsheet, mobile, and deployment behavior.
