@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { products } from "@/data/products";
+import { calculatePricing, MINIMUM_ORDER } from "@/lib/pricing";
 
 const input = z.object({
   name: z.string().trim().min(1).max(80),
@@ -55,7 +56,9 @@ export const logEnquiry = createServerFn({ method: "POST" })
       .map((i) => `${i.product.nameEn} (${i.product.pack}) x ${i.qty}`)
       .join("; ");
     const count = items.reduce((s, i) => s + i.qty, 0);
-    const total = items.reduce((s, i) => s + (i.product.price ?? 0) * i.qty, 0);
+    const originalTotal = items.reduce((s, i) => s + (i.product.price ?? 0) * i.qty, 0);
+    if (originalTotal < MINIMUM_ORDER) return { ok: false as const };
+    const pricing = calculatePricing(originalTotal);
     const { date, time } = istParts();
 
     const row = [
@@ -69,12 +72,14 @@ export const logEnquiry = createServerFn({ method: "POST" })
       data.email,
       itemText,
       count,
-      total,
+      pricing.originalTotal,
       data.lang === "ta" ? "Tamil" : "English",
+      pricing.discount,
+      pricing.finalTotal,
     ];
 
     const res = await fetch(
-      `${GATEWAY_URL}/spreadsheets/${sheetId}/values/Enquiries!A:L:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
+      `${GATEWAY_URL}/spreadsheets/${sheetId}/values/Enquiries!A:N:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
       {
         method: "POST",
         headers: {

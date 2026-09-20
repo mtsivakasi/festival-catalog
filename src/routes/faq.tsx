@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { shop } from "@/data/i18n";
+import { SiteFooter } from "@/components/catalogue/SiteFooter";
 
 const SITE = "https://festival-catalog.lovable.app";
 
@@ -28,7 +29,19 @@ const faqs: Faq[] = [
   },
   {
     q: "Is there a minimum order value?",
-    a: "Please message us on WhatsApp with your list. We will tell you the current minimum for delivery to your area before you confirm anything.",
+    a: "Yes. The minimum order is ₹2,500, calculated on the original catalogue total before the 80% discount. ஆம். 80% தள்ளுபடிக்கு முன் உள்ள அசல் பட்டியல் மொத்தத்தில் குறைந்தபட்ச ஆர்டர் ₹2,500.",
+  },
+  {
+    q: "How is the 80% discount calculated?",
+    a: "For now, 80% is subtracted from the original catalogue total. Your enquiry list and WhatsApp message show the original total, discount amount and final total payable separately.",
+  },
+  {
+    q: "When do I pay and are transportation charges included?",
+    a: "Full payment must be made upfront after your order is confirmed. Transportation charges are extra, depend on the delivery location, and will be informed after payment and order completion. ஆர்டர் உறுதிப்படுத்தப்பட்ட பிறகு முழுத் தொகையையும் முன்பணமாக செலுத்த வேண்டும். போக்குவரத்து கட்டணம் கூடுதல்; பணம் செலுத்தி ஆர்டர் முடிந்த பிறகு தெரிவிக்கப்படும்.",
+  },
+  {
+    q: "How soon will my order be dispatched?",
+    a: "Orders are dispatched within 24 business hours after payment and order completion, subject to availability and applicable transport rules.",
   },
   {
     q: "Which crackers are best for small children?",
@@ -153,6 +166,7 @@ function FaqPage() {
           </p>
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { useShop } from "@/lib/shop-state";
 import { logEnquiry } from "@/lib/enquiry-log.functions";
 import { products } from "@/data/products";
 import { shop } from "@/data/i18n";
+import { calculatePricing, formatCurrency, MINIMUM_ORDER } from "@/lib/pricing";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(80),
@@ -38,20 +39,23 @@ export function EnquiryDialog({
   const { t, lang, lines, setQty, clear } = useShop();
   const [form, setForm] = useState(empty);
   const [submitting, setSubmitting] = useState(false);
+  const [saveError, setSaveError] = useState(false);
 
   const items = Object.entries(lines)
     .map(([id, qty]) => ({ product: products.find((p) => p.id === id), qty }))
     .filter((i): i is { product: (typeof products)[number]; qty: number } => Boolean(i.product));
 
-  const total = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.qty, 0);
-  const valid = schema.safeParse(form).success && items.length > 0;
+  const originalTotal = items.reduce((sum, i) => sum + (i.product.price ?? 0) * i.qty, 0);
+  const pricing = calculatePricing(originalTotal);
+  const meetsMinimum = originalTotal >= MINIMUM_ORDER;
+  const valid = schema.safeParse(form).success && items.length > 0 && meetsMinimum;
 
   const set = (k: keyof typeof empty, v: string) =>
     setForm((f) => ({ ...f, [k]: v }));
 
   const send = async () => {
     const parsed = schema.safeParse(form);
-    if (!parsed.success || items.length === 0 || submitting) return;
+    if (!parsed.success || items.length === 0 || !meetsMinimum || submitting) return;
     const d = parsed.data;
     const lineText = items
       .map(
@@ -64,19 +68,28 @@ export function EnquiryDialog({
       .join("\n");
     const msg =
       `*${shop.nameEn} — ${t.orderMsgTitle}*\n\n${lineText}\n\n` +
-      `*${t.total}: ₹${total.toLocaleString("en-IN")}*\n\n` +
+      `*${t.originalTotal}: ${formatCurrency(pricing.originalTotal)}*\n` +
+      `${t.discount}: −${formatCurrency(pricing.discount)}\n` +
+      `*${t.finalTotal}: ${formatCurrency(pricing.finalTotal)}*\n\n` +
+      `${t.transportNotice}\n\n` +
       `${t.name}: ${d.name}\n${t.mobile}: ${d.mobile}\n${t.address}: ${d.address}\n` +
       `${t.city}: ${d.city}\n${t.pin}: ${d.pin}` +
       (d.email ? `\nEmail: ${d.email}` : "");
     const whatsappUrl = `https://wa.me/${shop.whatsapp}?text=${encodeURIComponent(msg)}`;
     setSubmitting(true);
+    setSaveError(false);
     try {
       const result = await logEnquiry({ data: { ...d, lang, lines } });
-      if (!result.ok) console.error("Enquiry was not saved to the spreadsheet.");
+      if (!result.ok) {
+        setSaveError(true);
+        return;
+      }
+      window.location.assign(whatsappUrl);
     } catch (error: unknown) {
       console.error("Enquiry spreadsheet save failed", error);
+      setSaveError(true);
     } finally {
-      window.location.assign(whatsappUrl);
+      setSubmitting(false);
     }
   };
 
@@ -145,15 +158,39 @@ export function EnquiryDialog({
             )}
 
             {items.length > 0 && (
-              <div className="flex items-center justify-between gap-3 border-t border-border pt-3">
-                <Button type="button" variant="outline" size="sm" onClick={clear}>
-                  <Trash2 className="h-3.5 w-3.5" />
-                  {t.clearList}
-                </Button>
-                <div className="flex items-center gap-2 text-sm font-semibold">
-                  <span>{t.total}</span>
-                  <span>₹{total.toLocaleString("en-IN")}</span>
+              <div className="space-y-3 border-t border-border pt-3">
+                <div className="flex items-start justify-between gap-3">
+                  <Button type="button" variant="outline" size="sm" onClick={clear}>
+                    <Trash2 className="h-3.5 w-3.5" />
+                    {t.clearList}
+                  </Button>
+                  <dl className="min-w-[12rem] space-y-1 text-sm">
+                    <div className="flex justify-between gap-4">
+                      <dt>{t.originalTotal}</dt>
+                      <dd>{formatCurrency(pricing.originalTotal)}</dd>
+                    </div>
+                    <div className="flex justify-between gap-4 text-muted-foreground">
+                      <dt>{t.discount}</dt>
+                      <dd>−{formatCurrency(pricing.discount)}</dd>
+                    </div>
+                    <div className="flex justify-between gap-4 border-t border-border pt-1 font-bold">
+                      <dt>{t.finalTotal}</dt>
+                      <dd>{formatCurrency(pricing.finalTotal)}</dd>
+                    </div>
+                  </dl>
                 </div>
+                {!meetsMinimum && (
+                  <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs font-semibold text-destructive" role="alert">
+                    <p>Minimum order is ₹2,500. Please add more items.</p>
+                    <p lang="ta">குறைந்தபட்ச ஆர்டர் ₹2,500. மேலும் பொருட்களைச் சேர்க்கவும்.</p>
+                  </div>
+                )}
+                <p className="text-xs leading-relaxed text-muted-foreground">{t.transportNotice}</p>
+                <p lang={lang === "ta" ? "en" : "ta"} className="text-xs leading-relaxed text-muted-foreground">
+                  {lang === "ta"
+                    ? "Transportation charges are extra and will be informed after payment and order completion."
+                    : "போக்குவரத்து கட்டணம் கூடுதல். பணம் செலுத்தி ஆர்டர் முடிந்த பிறகு தெரிவிக்கப்படும்."}
+                </p>
               </div>
             )}
 
@@ -198,6 +235,11 @@ export function EnquiryDialog({
         </div>
 
         <div className="shrink-0 border-t border-border px-4 py-3">
+          {saveError && (
+            <p role="alert" className="mb-2 text-center text-xs font-medium text-destructive">
+              Could not save the enquiry. Please try again. / விசாரணையைச் சேமிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.
+            </p>
+          )}
           <Button className="w-full" disabled={!valid || submitting} onClick={send}>
             {t.placeOrder}
           </Button>

@@ -2,8 +2,8 @@ export type Lang = "ta" | "en";
 
 export const ui = {
   ta: {
-    notice: "இது ஆன்லைன் விற்பனை இல்லை — பொருட்கள் பட்டியல் மற்றும் வாட்ஸ்ஆப் விசாரணை மட்டுமே.",
-    offer: "80% வரை தள்ளுபடி",
+    notice: "இது ஆன்லைன் விற்பனை இல்லை — பொருட்கள் பட்டியல் மற்றும் வாட்ஸ்ஆப் விசாரணை மட்டுமே. குறைந்தபட்ச ஆர்டர் ₹2,500.",
+    offer: "80% தள்ளுபடி",
     heroTitle: "தீபாவளி பட்டாசுகள், உங்கள் விருப்பப்படி.",
     heroSub:
       "எங்கள் தொகுப்பைப் பாருங்கள், பிடித்தவற்றைத் தேர்ந்தெடுங்கள், வாட்ஸ்ஆப் மூலம் நேரடியாக விசாரியுங்கள்.",
@@ -38,10 +38,16 @@ export const ui = {
     invalidPin: "6 இலக்க பின் கோடு",
     invalidEmail: "சரியான மின்னஞ்சல் அல்ல",
     orderMsgTitle: "விசாரணை",
+    originalTotal: "அசல் மொத்தம்",
+    discount: "80% தள்ளுபடி",
+    finalTotal: "செலுத்த வேண்டிய இறுதி தொகை",
+    minimumOrder: "குறைந்தபட்ச ஆர்டர் ₹2,500",
+    minimumWarning: "குறைந்தபட்ச ஆர்டர் ₹2,500. மேலும் பொருட்களைச் சேர்க்கவும்.",
+    transportNotice: "போக்குவரத்து கட்டணம் கூடுதல். பணம் செலுத்தி ஆர்டர் முடிந்த பிறகு தெரிவிக்கப்படும்.",
   },
   en: {
-    notice: "This is not online sales — product catalogue & WhatsApp enquiry only.",
-    offer: "Up to 80% off",
+    notice: "This is not online sales — product catalogue & WhatsApp enquiry only. Minimum order ₹2,500.",
+    offer: "80% off",
     heroTitle: "Deepavali Fireworks, Your Way.",
     heroSub:
       "Browse our collection, find your favourites, and enquire directly on WhatsApp.",
@@ -76,6 +82,12 @@ export const ui = {
     invalidPin: "Enter a 6 digit PIN",
     invalidEmail: "Enter a valid email",
     orderMsgTitle: "Enquiry",
+    originalTotal: "Original total",
+    discount: "80% discount",
+    finalTotal: "Final total payable",
+    minimumOrder: "Minimum order ₹2,500",
+    minimumWarning: "Minimum order is ₹2,500. Please add more items.",
+    transportNotice: "Transportation charges are extra and will be informed after payment and order completion.",
   },
 };
 

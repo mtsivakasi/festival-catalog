@@ -9,6 +9,7 @@ import { shop } from "@/data/i18n";
 import { ProductCard } from "@/components/catalogue/ProductCard";
 import { EnquiryDialog } from "@/components/catalogue/EnquiryDialog";
 import { FloatingEnquiryButton } from "@/components/catalogue/FloatingEnquiryButton";
+import { SiteFooter } from "@/components/catalogue/SiteFooter";
 import heroBannerLight from "@/assets/mathavan-hero-light.jpg";
 import heroBannerDark from "@/assets/mathavan-hero-dark.jpg";
 
@@ -358,53 +359,7 @@ function Catalogue() {
         </section>
       </main>
 
-      <footer className="border-t border-border px-4 pt-6 pb-24 text-center text-xs text-muted-foreground sm:pb-8">
-        <div className="mx-auto max-w-3xl space-y-2">
-          <p className="font-semibold text-foreground">{shop.nameTa} · {shop.nameEn}</p>
-          <address className="not-italic">
-            {shop.address}<br />
-            {shop.phones.map((phone, index) => (
-              <span key={phone}>
-                {index > 0 && " · "}
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-foreground">
-                  {phone}
-                </a>
-              </span>
-            ))}
-          </address>
-          <p>{t.footer}</p>
-          <p>
-            <Link to="/faq" className="font-medium text-foreground underline underline-offset-2">
-              FAQ
-            </Link>
-          </p>
-          <p>
-            This is not an e-commerce or online-sales website. It is provided only as a
-            product catalogue and enquiry service.
-          </p>
-          <p className="pt-2">© 2026 {shop.nameEn}</p>
-          <p className="mx-auto max-w-xl pb-2 text-center leading-relaxed">
-            Website by{" "}
-            <a
-              href="https://instagram.com/zerodot.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-foreground underline underline-offset-2"
-            >
-              ZeroDot
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://kliviq.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-foreground underline underline-offset-2"
-            >
-              KliviQ Technologies
-            </a>.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} />
 
 
       <FloatingEnquiryButton onClick={() => setOpen(true)} />
